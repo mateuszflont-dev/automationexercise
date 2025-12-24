@@ -1,0 +1,26 @@
+{
+  "validUser": {
+    "name": "tester_pl",
+    "email": "test_playwright@example.com",
+    "password": "SecretPassword123!",
+    "gender": "Mr.",
+    "dateOfBirth":
+    {
+        "day": "28",
+        "month": "October",
+        "year": "1992"
+    }
+  },
+  "invalidUser": {
+    "name": "bad",
+    "email": "wrong-email",
+    "password": "123",
+    "gender": "Mrs.",
+    "dateOfBirth":
+    {
+        "day": "15",
+        "month": "September",
+        "year": "1995"
+    }
+  }
+}
