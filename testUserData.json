@@ -9,7 +9,17 @@
         "day": "28",
         "month": "October",
         "year": "1992"
-    }
+    },
+    "firstName": "Tester",
+    "lastName": "Testovski",
+    "company": "MyOwn",
+    "address1": "Big Street",
+    "address2": "02/04",
+    "country": "USA",
+    "state": "Montana",
+    "city": "New York",
+    "zipcode": "12-123",
+    "mobileNumber": "123123123"
   },
   "invalidUser": {
     "name": "bad",
@@ -21,6 +31,16 @@
         "day": "15",
         "month": "September",
         "year": "1995"
-    }
+    },
+    "firstName": "123",
+    "lastName": "123",
+    "company": "123",
+    "address1": "123 Street",
+    "address2": "01232/04",
+    "country": "123",
+    "state": "123",
+    "city": "123 York",
+    "zipcode": "123234-123",
+    "mobileNumber": "1"
   }
 }

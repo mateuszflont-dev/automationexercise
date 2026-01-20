@@ -62,13 +62,41 @@ test('Register User', async ({ page }) => {
 
     const addressSection = registrationForm.locator(".required form-group");
       const firstNameBox = addressSection.getByRole('textbox', { name: 'First name *' });
+        await firstNameBox.fill(myUser.firstName);
       const lastNameBox = addressSection.getByRole('textbox', { name: 'Last name *' });
+        await lastNameBox.fill(myUser.lastName);
       const companyBox = addressSection.getByRole('textbox', { name: 'Company', exact: true });
-      await addressSection.getByRole('textbox', { name: 'Address * (Street address, P.' });
-      await addressSection.getByRole('textbox', { name: 'Address 2' });
-      await addressSection.getByRole('textbox', { name: 'State *' });
-      await addressSection.getByRole('textbox', { name: 'City * Zipcode *' });
-      await addressSection.locator('#zipcode');
-      await addressSection.getByRole('textbox', { name: 'Mobile Number *' });
+        await companyBox.fill(myUser.company);
+      const addressBox1 = addressSection.getByRole('textbox', { name: 'Address * (Street address, P.' });
+        await addressBox1.fill(myUser.address1);
+      const addressBox2 = addressSection.getByRole('textbox', { name: 'Address 2' });
+        await addressBox2.fill(myUser.address2);
+      const countryBox = addressSection.getByLabel('Country *');
+        await countryBox.selectOption(myUser.country);
+      const stateBox = addressSection.getByRole('textbox', { name: 'State *' });
+        await stateBox.fill(myUser.state);
+      const cityBox = addressSection.getByRole('textbox', { name: 'City *' });
+        await cityBox.fill(myUser.city);
+      const zipcodeBox = addressSection.getByRole('textbox', { name: 'Zipcode *' });
+        await zipcodeBox.fill(myUser.zipcode);
+      const mobileNumberBox = addressSection.getByRole('textbox', { name: 'Mobile Number *' });
+        await mobileNumberBox.fill(myUser.mobileNumber);
       
+    const registerButton = page.getByRole('button', { name: 'Create Account' })
+      await registerButton.click();
+
+    const accountCreatedLabel = page.getByRole('heading', {name: "Account Created!"});
+      await expect(accountCreatedLabel).toBeVisible();
+
+    const continueButton = page.getByRole('button', {name: "continue-button"});
+      await continueButton.click();
+
+    const loggedAs = page.getByRole('link', {name: `Logged in as ${myUser.name}`});
+      await expect(loggedAs).toBeVisible();
+
+    const deleteAccount = page.getByRole('link', {name: "Delete Account"});
+      await deleteAccount.click();
+
+    const accountDeletedLabel = page.getByRole('heading', {name: "ACCOUNT DELETED!"});
+      await expect(accountDeletedLabel).toBeVisible();
 });
