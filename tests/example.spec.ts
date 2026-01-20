@@ -54,4 +54,21 @@ test('Register User', async ({ page }) => {
       const yearSelector = birthdaySection.getByRole('combobox', {name: "Year"});
         await yearSelector.selectOption(myUser.dateOfBirth.year);
 
+    const newsletterCheckbox = registrationForm.getByRole("checkbox", {name: "newsletter"});
+    await newsletterCheckbox.check();
+
+    const optinCheckbox = registrationForm.getByRole("checkbox", {name: "optin"});
+    await optinCheckbox.check();
+
+    const addressSection = registrationForm.locator(".required form-group");
+      const firstNameBox = addressSection.getByRole('textbox', { name: 'First name *' });
+      const lastNameBox = addressSection.getByRole('textbox', { name: 'Last name *' });
+      const companyBox = addressSection.getByRole('textbox', { name: 'Company', exact: true });
+      await addressSection.getByRole('textbox', { name: 'Address * (Street address, P.' });
+      await addressSection.getByRole('textbox', { name: 'Address 2' });
+      await addressSection.getByRole('textbox', { name: 'State *' });
+      await addressSection.getByRole('textbox', { name: 'City * Zipcode *' });
+      await addressSection.locator('#zipcode');
+      await addressSection.getByRole('textbox', { name: 'Mobile Number *' });
+      
 });
