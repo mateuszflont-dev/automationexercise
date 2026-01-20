@@ -8,7 +8,7 @@ test('Register User', async ({ page }) => {
   await page.waitForLoadState('networkidle');
   
   const cookiesButton = page.getByRole('button', {name: "Consent"});
-  if (await cookiesButton.isVisible)
+  if (await cookiesButton.isVisible())
     await cookiesButton.click();
 
   await page.getByRole('link', {name: "Signup / Login"}).click();
@@ -38,7 +38,7 @@ test('Register User', async ({ page }) => {
     const formRadio = formGenderSection.getByRole('radio', {name: myUser.gender, exact: true});
     await formRadio.check();
 
-    const formNameBox = registrationForm.getByRole('textbox', {name: "name"});
+    const formNameBox = registrationForm.getByRole('textbox', {name: "Name *", exact: true});
     await formNameBox.fill(myUser.name);
 
     //const formEmailBox = registrationForm.getByRole('textbox', {name: "Email"});
@@ -47,39 +47,40 @@ test('Register User', async ({ page }) => {
     await formPasswordBox.fill(myUser.password);
 
     const birthdaySection = registrationForm.locator(".form-group").filter({hasText: "Date of birth"});
-      const daySelector = birthdaySection.getByRole('combobox', {name: "Day"});
+      const daySelector = birthdaySection.getByRole("combobox").filter({hasText: "Day"});
         await daySelector.selectOption(myUser.dateOfBirth.day);
-      const monthSelector = birthdaySection.getByRole('combobox', {name: "Month"});
+      const monthSelector = birthdaySection.getByRole("combobox").filter({hasText: "Month"});
         await monthSelector.selectOption(myUser.dateOfBirth.month);
-      const yearSelector = birthdaySection.getByRole('combobox', {name: "Year"});
+      const yearSelector = birthdaySection.getByRole("combobox").filter({hasText: "Year"});
         await yearSelector.selectOption(myUser.dateOfBirth.year);
 
     const newsletterCheckbox = registrationForm.getByRole("checkbox", {name: "newsletter"});
     await newsletterCheckbox.check();
 
-    const optinCheckbox = registrationForm.getByRole("checkbox", {name: "optin"});
+    const optinCheckbox = registrationForm.getByRole("checkbox", {name: "Receive special offers from our partners!"});
     await optinCheckbox.check();
 
-    const addressSection = registrationForm.locator(".required form-group");
-      const firstNameBox = addressSection.getByRole('textbox', { name: 'First name *' });
+    const notRequiredSection = registrationForm.locator(".form-group");
+    const addressSection = registrationForm.locator(".required.form-group");
+      const firstNameBox = addressSection.getByRole('textbox', { name: 'First name' });
         await firstNameBox.fill(myUser.firstName);
-      const lastNameBox = addressSection.getByRole('textbox', { name: 'Last name *' });
+      const lastNameBox = addressSection.getByRole('textbox', { name: 'Last name' });
         await lastNameBox.fill(myUser.lastName);
-      const companyBox = addressSection.getByRole('textbox', { name: 'Company', exact: true });
+      const companyBox = notRequiredSection.locator('#company');
         await companyBox.fill(myUser.company);
-      const addressBox1 = addressSection.getByRole('textbox', { name: 'Address * (Street address, P.' });
+      const addressBox1 = addressSection.getByRole('textbox', { name: 'Address'}).first();
         await addressBox1.fill(myUser.address1);
-      const addressBox2 = addressSection.getByRole('textbox', { name: 'Address 2' });
+      const addressBox2 = addressSection.getByRole('textbox', { name: 'Address'}).nth(1);
         await addressBox2.fill(myUser.address2);
-      const countryBox = addressSection.getByLabel('Country *');
+      const countryBox = addressSection.getByLabel('Country');
         await countryBox.selectOption(myUser.country);
-      const stateBox = addressSection.getByRole('textbox', { name: 'State *' });
+      const stateBox = addressSection.getByRole('textbox', { name: 'State' });
         await stateBox.fill(myUser.state);
-      const cityBox = addressSection.getByRole('textbox', { name: 'City *' });
+      const cityBox = addressSection.getByRole('textbox', { name: 'City' });
         await cityBox.fill(myUser.city);
-      const zipcodeBox = addressSection.getByRole('textbox', { name: 'Zipcode *' });
+      const zipcodeBox = addressSection.locator('#zipcode');
         await zipcodeBox.fill(myUser.zipcode);
-      const mobileNumberBox = addressSection.getByRole('textbox', { name: 'Mobile Number *' });
+      const mobileNumberBox = addressSection.getByRole('textbox', { name: 'Mobile Number' });
         await mobileNumberBox.fill(myUser.mobileNumber);
       
     const registerButton = page.getByRole('button', { name: 'Create Account' })
@@ -88,10 +89,10 @@ test('Register User', async ({ page }) => {
     const accountCreatedLabel = page.getByRole('heading', {name: "Account Created!"});
       await expect(accountCreatedLabel).toBeVisible();
 
-    const continueButton = page.getByRole('button', {name: "continue-button"});
+    const continueButton = page.getByRole('link', { name: 'Continue' })
       await continueButton.click();
 
-    const loggedAs = page.getByRole('link', {name: `Logged in as ${myUser.name}`});
+    const loggedAs = page.getByText(`Logged in as ${myUser.name}`);
       await expect(loggedAs).toBeVisible();
 
     const deleteAccount = page.getByRole('link', {name: "Delete Account"});

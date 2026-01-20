@@ -1,7 +1,7 @@
 {
   "validUser": {
-    "name": "tester_pl",
-    "email": "test_playwright@example.com",
+    "name": "tester_pl3",
+    "email": "test_playwright3@example.com",
     "password": "SecretPassword123!",
     "gender": "Mr.",
     "dateOfBirth":
@@ -15,7 +15,7 @@
     "company": "MyOwn",
     "address1": "Big Street",
     "address2": "02/04",
-    "country": "USA",
+    "country": "United States",
     "state": "Montana",
     "city": "New York",
     "zipcode": "12-123",
